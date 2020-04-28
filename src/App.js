@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import styled from 'styled-components';
 //import UserInput from './UserInput/UserInput'
 //import UserOutput from './UserOutput/UserOutput';
+const StyledButton = styled.button`
+  background-color: ${props => props.alt ? 'purple' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1x solid blue;
+  padding: 8px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+    color: black;
+  }
+`;
 
 class App extends Component {
 
@@ -57,12 +71,19 @@ class App extends Component {
   }
 
   render() {
+
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1x solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black',
+      }
     };
 
     let persons = null;
@@ -76,27 +97,33 @@ class App extends Component {
               name={person.name}
               age={person.age}
               key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />);
+              changed={(event) => this.nameChangedHandler(event, person.id)} />
+            );
           })}
         </div>
       );
+      // style.backgroundColor = 'purple';
+      // style[':hover'] = {
+      //   backgroundColor: 'orange',
+      //   color: 'white'
+      // }
     }
+
+    // dynamically assigning css classes
+    let classes = [];
+    (this.state.persons.length <= 2) ? classes.push('red') : null;
+    (this.state.persons.length <= 1) ? classes.push('bold') : null;
 
     return (
       <div className="App">
         <h1>Hi, I am a react App</h1>
-        <p>Hey there, I'm using this app. This is really working</p>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Switch Name</button>
+        <p className={classes.join(' ')}>Hey there, I'm using this app. This is really working</p>
+        <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}>
+          Toggle Button
+        </StyledButton>
         {persons}
-        {/* <UserInput changed={this.usernameChangedHandler}
-          value={this.state.username} />
-        <UserOutput userName={this.state.username} />
-        <UserOutput userName={this.state.username} />
-        <UserOutput userName="Max" /> */}
       </div>
-    )
+    );
   }
 }
 export default App;
