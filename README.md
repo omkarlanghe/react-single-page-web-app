@@ -130,6 +130,10 @@ After creation, your project should look like this:
 
 ```
 my-app/
+  scrips/
+    build.js
+    start.js
+    test.js
   README.md
   node_modules/
   package.json
@@ -137,9 +141,19 @@ my-app/
     index.html
     favicon.ico
   src/
-    App.css
-    App.js
-    App.test.js
+    components/
+      Cockpit/
+        Cockpit.css
+        Cockpit.js
+      Persons/
+        Person/
+          Person.css
+          Person.js
+        Persons.js
+    containers/
+      App.css
+      App.js
+      App.test.js
     index.css
     index.js
     logo.svg
